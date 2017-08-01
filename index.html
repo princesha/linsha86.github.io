@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>出发吧！为梦前行</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery-1.12.3.min.js"></script>
+</head>
+<style>
+    /*解决安卓手机输入文本时,键盘弹出打乱页面样式方法*/
+    @media (max-height: 960px) {
+
+        html {
+            height: 100%;
+        }
+
+        .prize_page, .submit_page {
+            width: 100%;
+            height: 11.5rem;
+        }
+
+    }
+</style>
+<body>
+<!--是否首次进来--><!--0代表首次进来，1代表第二次进来-->
+<input type="hidden" id="first_time" value="0"/>
+<input type="hidden" id="join" value="0">  <!--记录是否参与过游戏,参与过为1,控制首页"我的行李箱"按钮显示-->
+<input type="hidden" id="today_chance" value="100">  <!--能够刮刮的次数-->
+<input type="hidden" id="share_get_chance" value="0"> <!--今日分享次数-->
+<!--loading页-->
+<div class="fixed"
+     style="z-index:999;width: 100%;height: 100%;background-color: #000;position: fixed;left: 0;top: 0;"></div>
+<section class="page loading">
+    <div class="modal_mask">
+        <div class="content">
+            <h3 class="logo"></h3>
+            <div class="circle">
+                <div class="big">
+                    <div class="small"></div>
+                </div>
+                <div class="inner_big progress">0%</div>
+            </div>
+            <span class="words">loading...</span>
+        </div>
+    </div>
+</section>
+<!--活动规则页-->
+<section class="page rule rule_page dno">
+    <div class="inner_item">
+        <div class="inner_hd">游戏规则</div>
+        <div class="rule_box">
+            <ol class="list">
+                <li>每次游戏只能选择一个目的地，每天游戏次数不限</li>
+                <li>每位用户每天只能抽一次奖，分享后额外获得一次抽奖机会</li>
+                <li>奖项设置
+                    <p>特等奖：丝涟洛希床垫（12,800元） 1份</p>
+                    <p>一等奖：携程任我行旅行现金卡（1,000元） 8份</p>
+                    <p>二等奖：丝涟纤护舒适侧睡枕 15份</p>
+                    <p>三等奖：丝涟皮肤衣（均码） 30份</p>
+                    <p>四等奖：丝涟睡尼玩偶 100份</p>
+                    <p>五等奖：丝涟精品馆电子代金券（800元 ）1000份</p>
+                </li>
+            </ol>
+        </div>
+        <div class="inner_ft"><img src="img/cd.png"></div>
+    </div>
+    <span class="btn_item btn_back"></span>
+</section>
+<!--kv页-->
+<section class="page_pop dno">
+    <div class="modal_mask"></div>
+    <div class="modal_bd">
+        <img src="img/france_pop.png">
+        <span class="pop_close"></span>
+        <span class="pop_confirm"></span>
+    </div>
+
+</section>
+<section class="page kv_page dno">
+    <div class="main_kv">
+        <em class="dialog dialog_us">
+            <img src="img/dialog_us.png" alt="">
+        </em>
+        <em class="dialog dialog_france">
+            <img src="img/dialog_france.png" alt="">
+        </em>
+        <em class="dialog dialog_uk">
+            <img src="img/dialog_uk.png" alt="">
+        </em>
+        <em class="dialog dialog_italy">
+            <img src="img/dialog_italy.png" alt="">
+        </em>
+        <em class="dialog dialog_aus">
+            <img src="img/dialog_aus.png" alt="">
+        </em>
+        <i class="zs">
+            <span class="us" title="usArr" name="us">美国</span>
+            <span class="france" title="franceArr" name="france">法国</span>
+            <span class="uk" title="ukArr" name="uk">英国</span>
+            <span class="roma" title="ItalyAr" name="roma">罗马</span>
+            <span class="Austra" title="AustrArr" name="austra">澳大利亚</span>
+        </i>
+    </div>
+    <!-- <div class="words">
+        <span class="arrow"></span>
+        点击建筑景点开启环游世界惊喜之旅
+    </div> -->
+    <div class="plain_bg"></div>
+    <div class="btn_item btn_rule"></div>
+    <div class="btn_item btn_suitcase"></div>
+</section>
+<!--拍照-->
+<section class="page photo_page dno">
+    <div class="wrap_box">
+        <div class="photoBtn"></div>
+        <div class="photoAgain dno"></div>
+        <div class="photoBox">
+            <div class="inner_box">
+                <img src="">
+            </div>
+        </div>
+        <div class="words">这将是您本次出行的专享头像哦！</div>
+        <div class="btn_item upload_btn"></div>
+        <div class="cd_bg"></div>
+    </div>
+</section>
+<!--申请签证-->
+<section class="page apply_page dno">
+    <div class="inner_item apply_item">
+        <div class="inner_hd">签证申请</div>
+        <div class="inner_bd">
+            <div class="item clearfix item1">
+                <div class="c_left pullleft">
+                    <div class="sign_box">
+                        <span class="hot">你的星座:</span>
+                        <select name="" class="sign_star select_item">
+                            <option value="" hidden="true"></option>
+                            <option value="1">白羊座</option>
+                            <option value="2">金牛座</option>
+                            <option value="3">双子座</option>
+                            <option value="4">巨蟹座</option>
+                            <option value="5">狮子座</option>
+                            <option value="6">处女座</option>
+                            <option value="7">天秤座</option>
+                            <option value="8">天蝎座</option>
+                            <option value="9">射手座</option>
+                            <option value="10">摩羯座</option>
+                            <option value="11">水瓶座</option>
+                            <option value="12">双鱼座</option>
+                        </select>
+                    </div>
+                    <div class="fell_box">
+                        <span class="hot">情感状态:</span>
+                        <select name="" class="star_state select_item">
+                            <option value="" hidden="true"></option>
+                            <option value="1">单身汪</option>
+                            <option value="2">空窗期</option>
+                            <option value="3">暧昧期</option>
+                            <option value="4">秀恩爱</option>
+                            <option value="5">蜜月期</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="c_right pullright">
+                    <div class="inner_bg"><img src></div>
+                    <span class="postmark"></span>
+                </div>
+            </div>
+            <div class="item">
+                <p class="hot">请描述下你自己：</p>
+                <div class="desc_txt"></div>
+                <ul class="list clearfix">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+            <div class="item item3">
+                <p class="hot">我的旅行口号：</p>
+                <select name="" class="slogan select_item">
+                    <option value="">我的征途是星辰大海！</option>
+                    <option value="">面朝大海，春暖花开，就等我来！</option>
+                    <option value="">一路向北 用生命去漂移</option>
+                    <option value="">背上行囊，我要笑傲江湖</option>
+                    <option value="">再不出去走走，我就老了~</option>
+                    <option value="">和我一起见证世界</option>
+                    <option value="">到了长城还不算，好汉走遍全世界。</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <span class="btn_item btn_tj"></span>
+    <div class="cd_bg"></div>
+</section>
+<!--审核通过-->
+<section class="page audit_page dno">
+    <div class="modal_mask"></div>
+    <div class="cd_bg"></div>
+    <div class="earth"></div>
+    <div class="pass_pic"></div>
+</section>
+<!--结果页面-->
+<section class="page result_page dno">
+    <div class="inner_bg">
+
+        <div class="pp_yama">
+            <div class="pp_pic_yama"></div>
+        </div>
+        <div class="pp_hui_yama"><img src="img/hui.png" style="width:100%;"></div>
+
+
+        <span class="postmark"></span>
+        <div class="city_pic"></div>
+        <div class="pdl2">
+            <div class="chance title">你在此处邂逅的指数：<br/>
+                    <span class="star_bg">
+                        <img src=""/>
+                    </span>
+            </div>
+            <p class="star_text"></p>
+            <div class="adventure title">你在这里最容易发生的奇遇是：<br/>
+                <p class="tab_text"></p>
+            </div>
+        </div>
+        <div class="suit">
+            <span class="suit_bg"></span>
+            <span class="suit_place"><img src=""></span>
+        </div>
+    </div>
+    <div class="btn">
+        <span class="btn_item btn_again"></span>
+        <span class="btn_item btn_gift"></span>
+    </div>
+</section>
+<!--表单提交页-->
+<section class="page submit_page dno">
+    <div class="inner_item">
+        <div class="inner_hd">身份验证</div>
+        <!--表单提交部分-->
+        <div class="form_info">
+            <form action="" method="post">
+                <div class="form-group clearfix">
+                    <label>姓名:</label>
+                    <input type="text" id="username" name="u_name">
+                </div>
+                <div class="form-group clearfix">
+                    <label>手机:</label>
+                    <input type="text" id="mobile" name="u_mobile">
+                </div>
+                <div class="form-group clearfix" style="display: none;">
+                    <label>地址:<br/></label>
+                    <input type="text" id="address" name="u_address">
+                </div>
+
+            </form>
+        </div>
+        <div class="agreement">
+            <span id="gouBg" class="gou_bg"></span>
+        </div>
+        <div class="form-btn clearfix fingerBig">
+                <span class="finger" id="submit">
+                    <span class="line"></span>
+                </span>
+            <!--<input id="submit" type="button" class="finger">-->
+
+        </div>
+    </div>
+    <div class="reward dno">
+        <div class="modal_mask">
+            <span class="modal_close"></span>
+        </div>
+        <div class="modal_bd"></div>
+    </div>
+</section>
+<!--奖品页 我的旅行箱-->
+<section class="page prize prize_page dno">
+    <div class="inner_item">
+        <div class="inner_hd">我的旅行箱</div>
+        <div class="form_info">
+            <form action="" method="post">
+                <div class="form-group clearfix">
+                    <label>姓名:</label>
+                    <input type="text" id="username2" name="l_name" value="<?php echo $re_myinfo['u_name']; ?>">
+                </div>
+                <div class="form-group clearfix">
+                    <label>手机:</label>
+                    <input type="text" id="mobile2" name="l_mobile" value="<?php echo $re_myinfo['u_mobile']; ?>">
+                </div>
+                <div class="form-group clearfix" style='display:none;'>
+                    <label>地址:<br/></label>
+                    <input type="text" id="address2" name="l_address" value="<?php echo $re_myinfo['u_address']; ?>">
+                </div>
+            </form>
+        </div>
+        <div class="my_prize">
+            <p>我的奖品</p>
+            <ul class="prize_list">
+                <li class="toys"><img src="" alt="">
+                </li>
+                <li>丝涟精品馆电子代金券x1</li>
+            </ul>
+        </div>
+        <a href="http://campaignsites.cn/sealy/lbs/" class="more">去门店享更多优惠</a>
+    </div>
+    <div class="btn">
+        <span class="btn_item btn_confirm" id="modify"></span>
+        <span class="btn_item btn_back"></span>
+    </div>
+</section>
+<!--抽奖次数页-->
+<section class="lottery_page dno">
+    <div class="modal_mask modal">
+        <span class="modal_close j_modal_close"></span>
+    </div>
+    <div class="modal_bd"></div>
+</section>
+<section class="winning_page dno">
+    <div class="modal_mask modal">
+    </div>
+    <span class="modal_close j_modal_close"></span>
+    <div class="modal_bd">
+        <img src="" alt="">
+    </div>
+</section>
+<script>
+    var _hmt = _hmt || [];
+    (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?29c39267ab403b7cc8a7ecb9d25933fe";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+</body>
+<script src="js/linshaValidate.js"></script>
+<script>
+
+    var $us = $(".zs .us"),
+        $uk = $(".zs .uk"),
+        $france = $(".zs .france"),
+        $roma = $('.zs .roma'),
+        $austra = $(".zs .Austra");
+
+    /*需要提交给后台的数据*/
+    var country = '',
+        j_img ='' ,
+        xinzuo = '',
+        tag = '',
+        message = '',
+        xinge = '',
+        zhishu = '',
+        des = '',
+        j_city = ''
+
+    var currentCountryName;
+    var share_get_chance = $("#share_get_chance").val();
+    /*国家数组*/
+    var countArr = {
+        "usArr":['us1','us2','us3','us4','us5'],
+        "ukArr":['uk1','uk2','uk3','uk4','uk5'],
+        "franceArr":['f1','f2','f3','f4','f5'],
+        "ItalyAr":['I1','I3','I3','I4','I5'],
+        "AustrArr":['Aus1','Aus2','Aus3','Aus4','Aus5']
+    }
+
+    /*奇遇数据*/
+    titleTextObj = {
+        'us-qiYuA':'阳光之下，万物生长，跟着三月兔和美国白头海雕一起梦游仙境。在你的旅途中将遇见9次甜蜜邂逅，意想不到的爱情将在此萌发。',
+        'us-qiYuB':'空气里有美国玫瑰的花香，差点睡过头，却被当年牛顿躺过的苹果树上的苹果不幸砸中。不香菇不蓝瘦，当年伟大牛顿也是单身主义者，你是光棍你光荣！',
+        'us-qiYuC':'真相只有一个！福尔摩斯特地乘坐邮轮横穿太平洋来到美国，邀你协助破案，罪与罚的较量就此开始，喂喂喂，别再睡了！梦醒了，你将无比荣幸地发现，99次睡过的床垫是丝涟床垫。',
+        'us-qiYuD':'唯有奢华二字才配得上女神的身段，偶遇女神霉霉随便来几张照片，惊艳整个朋友圈。这辈子，你将有6次与巨星住在同一酒店，与其擦肩而过，且行且珍惜。',
+        'us-qiYuE':'被女星看上获巨额遗产，漂洋过海入住梦寐以求的超奢豪宅。当你行走在夏威夷的途中，将意外获得24次超级大红包，任由你挥霍。',
+        'us-qiYuF':'虚华落尽尘缘了，恭喜你成功被清代罗汉床封印了。很抱歉，这辈子你将因为被床封印的缘故而错过至少8次观赏像出现在自由女神之上的日出。',
+        'us-qiYuG':'由于酒店床垫睡感已经达到“魔性”的级别，小妖精粘在床上无法动弹一整天。这辈子，你将获得101次入住奢华得像万豪一样的酒店的机会，也许有一次是丝涟送你的。',
+
+        'uk-qiYuA':'阳光之下，万物生长，跟着三月兔和英国知更鸟一起梦游仙境。在你的旅途中将遇见9次甜蜜邂逅，意想不到的爱情将在此萌发。',
+        'uk-qiYuB':'英国大本钟正好落到12点，差点睡过头，却被当年牛顿躺过的苹果树上的苹果不幸砸中。不香菇不蓝瘦，当年伟大牛顿也是单身主义者，你是光棍你光荣！',
+        'uk-qiYuC':'真相只有一个！福尔摩斯邀你协助破案，罪与罚的较量就此开始，喂喂喂，别再睡了！梦醒了，你将无比荣幸地发现，99次睡过的床垫是丝涟床垫。',
+        'uk-qiYuD':'唯有奢华二字才配得上女神的身段，偶遇伊丽莎白女王随便来几张照片，惊艳整个朋友圈。这辈子，你将有6次与巨星住在同一酒店，与其擦肩而过，且行且珍惜。',
+        'uk-qiYuE':'被女星看上获巨额遗产，漂洋过海入住梦寐以求的超奢豪宅。当你行走在爱丁堡的途中，将意外获得24次超级大红包，任由你挥霍。',
+        'uk-qiYuF':'虚华落尽尘缘了，恭喜你成功被清代罗汉床封印了。很抱歉，这辈子你将因为被床封印的缘故而错过至少8次观赏像大伦敦那样宁静的日出。',
+        'uk-qiYuG':'由于酒店床垫睡感已经达到“魔性”的级别，小妖精粘在床上无法动弹一整天。这辈子，你将获得101次入住奢华得像白金汉门51号一样的酒店的机会，也许有一次是丝涟送你的。',
+
+        'france-qiYuA':'阳光之下，万物生长，跟着三月兔和法国公鸡一起梦游仙境。在你的旅途中将遇见9次甜蜜邂逅，意想不到的爱情将在此萌发。',
+        'france-qiYuB':'空气里有法国香根鸢尾的花香，差点睡过头，却被当年牛顿躺过的苹果树上的苹果不幸砸中。不香菇不蓝瘦，当年伟大牛顿也是单身主义者，你是光棍你光荣！',
+        'france-qiYuC':'真相只有一个！福尔摩斯承包法国空客A380只为找你一同协助破案，罪与罚的较量就此开始，喂喂喂，别再睡了！梦醒了，你将无比荣幸地发现，99次睡过的床垫是丝涟床垫。',
+        'france-qiYuD':'唯有奢华二字才配得上女神的身段，偶遇法国女星玛索随便来几张照片，惊艳整个朋友圈。这辈子，你将有6次与巨星住在同一酒店，与其擦肩而过，且行且珍惜。',
+        'france-qiYuE':'被女星看上获巨额遗产，漂洋过海入住梦寐以求的超奢豪宅。当你越过凯旋门，将意外获得24次超级大红包，任由你挥霍。',
+        'france-qiYuF':'虚华落尽尘缘了，恭喜你成功被清代罗汉床封印了。很抱歉，这辈子你将因为被床封印的缘故而错过至少8次观赏像巴黎那样浪漫的日出。',
+        'france-qiYuG':'由于酒店床垫睡感已经达到“魔性”的级别，小妖精粘在床上无法动弹一整天。这辈子，你将获得101次入住奢华得像La Rserve一样的酒店的机会，也许有一次是丝涟送你的。',
+
+        'roma-qiYuA':'阳光之下，万物生长，跟着三月兔和意大利山鹰一起梦游仙境。在你的旅途中将遇见9次甜蜜邂逅，意想不到的爱情将在此萌发。',
+        'roma-qiYuB':'空气里有意大利雏菊的花香，差点睡过头，却被当年牛顿躺过的苹果树上的苹果不幸砸中。不香菇不蓝瘦，当年伟大牛顿也是单身主义者，你是光棍你光荣！',
+        'roma-qiYuC':'真相只有一个！福尔摩斯开着法拉利来到意大利，只为找你一同协助破案，罪与罚的较量就此开始，喂喂喂，别再睡了！梦醒了，你将无比荣幸地发现，99次睡过的床垫是丝涟床垫。',
+        'roma-qiYuD':'唯有奢华二字才配得上女神的身段，偶遇赫本随便来几张照片，惊艳整个朋友圈。这辈子，你将有6次与巨星住在同一酒店，与其擦肩而过，且行且珍惜。',
+        'roma-qiYuE':'被女星看上获巨额遗产，漂洋过海入住梦寐以求的超奢豪宅。当你行走在梵蒂冈的路上，将意外获得24次超级大红包，任由你挥霍。',
+        'roma-qiYuF':'虚华落尽尘缘了，恭喜你成功被清代罗汉床封印了。很抱歉，这辈子你将因为被床封印的缘故而错过至少8次观赏像佛罗伦萨那样清新的日出。',
+        'roma-qiYuG':'由于酒店床垫睡感已经达到“魔性”的级别，小妖精粘在床上无法动弹一整天。这辈子，你将获得101次入住奢华得像芬迪宫一样的酒店的机会，也许有一次是丝涟送你的。',
+
+        'austra-qiYuA':'阳光之下，万物生长，跟着三月兔和澳洲考拉一起梦游仙境。在你的旅途中将遇见9次甜蜜邂逅，意想不到的爱情将在此萌发。',
+        'austra-qiYuB':'空气里有澳洲金百合的花香，差点睡过头，却被当年牛顿躺过的苹果树上的苹果不幸砸中。不香菇不蓝瘦，当年伟大牛顿也是单身主义者，你是光棍你光荣！',
+        'austra-qiYuC':'真相只有一个！福尔摩斯坐直升机特地来到澳大利亚，就是为了邀你协助破案，罪与罚的较量就此开始，喂喂喂，别再睡了！梦醒了，你将无比荣幸地发现，99次睡过的床垫是丝涟床垫。',
+        'austra-qiYuD':'唯有奢华二字才配得上女神的身段，偶遇模特米兰达可儿随便来几张照片，惊艳整个朋友圈。这辈子，你将有6次与巨星住在同一酒店，与其擦肩而过，且行且珍惜。',
+        'austra-qiYuE':'被女星看上获巨额遗产，漂洋过海入住梦寐以求的超奢豪宅。在你行走在澳洲黄金海岸的途中，将意外获得24次超级大红包，任由你挥霍。',
+        'austra-qiYuF':'虚华落尽尘缘了，恭喜你成功被清代罗汉床封印了。很抱歉，这辈子你将因为被床封印的缘故而错过至少8次观赏像悉尼那样唯美的日出。',
+        'austra-qiYuG':'由于酒店床垫睡感已经达到“魔性”的级别，小妖精粘在床上无法动弹一整天。这辈子，你将获得101次入住奢华得像范思哲一样的酒店的机会，也许有一次是丝涟送你的。',
+    }
+    /*标签对应的奇遇文字*/
+    var titleObj = {
+        '萌萌哒':'qiYuA',
+        '少女心':'qiYuA',
+        '浪漫':'qiYuA',
+        '玻璃心':'qiYuA',
+        '爱撒娇':'qiYuA',
+        '吃货':'qiYuB',
+        '完美主义':'qiYuC',
+        '正义感':'qiYuC',
+        '脑洞大':'qiYuC',
+        '高智商':'qiYuC',
+        '购物狂':'qiYuD',
+        '独身主义':'qiYuD',
+        '小情绪':'qiYuD',
+        '强迫症':'qiYuD',
+        '小鲜肉':'qiYuE',
+        '霸道':'qiYuE',
+        '傲娇':'qiYuF',
+        '中二':'qiYuF',
+        '骨灰级懒':'qiYuF',
+        '吐槽君':'qiYuF',
+        '女汉子':'qiYuF',
+        '容易冲动':'qiYuF',
+        '猛汉':'qiYuG',
+        'NoZuoNoDie':'qiYuG'
+    }
+    /*国家对应的具体城市名称*/
+    var countName={
+        "us1":"拉斯维加斯",
+        "us2":"西雅图",
+        "us3":"费城",
+        "us4":"华盛顿",
+        "us1":"纽约",
+        "uk1":"伦敦",
+        "uk2":"剑桥",
+        "uk3":"牛津",
+        "uk4":"爱丁堡",
+        "uk5":"北爱尔兰",
+        "f1":"巴黎",
+        "f2":"尼斯",
+        "f3":"普罗旺斯",
+        "f4":"戛纳",
+        "f5":"安纳西",
+        "I1":"比萨",
+        "I2":"米兰",
+        "I3":"弗洛伦撒",
+        "I4":"威尼斯",
+        "I5":"罗马",
+        "Aus1":"大堡礁",
+        "Aus2":"布里斯班",
+        "Aus3":"黄金海岸",
+        "Aus4":"墨尔本",
+        "Aus5":"悉尼",
+    }
+    $(window).load(function () {
+        initEvent();
+        initCountEvent();
+        fingerEvent();
+    });
+
+    /**
+     * 初始化事件
+     */
+    function initEvent(){
+        selfAdaption(); //自适应
+        removeTopElement(); //移除顶层元素
+        percentageInit();   //百分比
+        addOrDelDesc(); //追加或删除文字
+    }
+
+    /**
+     *窗口发生改变
+     */
+    window.onresize = function () {
+        selfAdaption();
+    }
+
+    /**
+     * 自适应rem
+     */
+    function selfAdaption() {
+        var screenWidth = document.documentElement.clientWidth;
+        document.documentElement.style.fontSize = (100 / 640) * screenWidth + 'px';
+    }
+
+    /**
+     * 移除顶层元素
+     */
+    function removeTopElement(){
+        $("div.fixed").remove();
+    }
+
+    /**
+     * 百分比函数
+     */
+    function percentageInit(){
+        var divAnim = new textAnim(".progress",2000/100);
+        divAnim.percentageAnim();
+    }
+
+    /**
+     * 百分数(1-100%)动画构造函数
+     */
+    function textAnim(divName,time) {
+        this.i=0;
+        this.x=0;
+        this.time=time;
+        this.divName=divName;
+        this.timer=undefined;
+
+        this.percentageAnim=function () {
+            var _this=this;
+            this.timer=setInterval(function () {
+                _this.i++;
+                $(_this.divName).text(_this.i+"%");
+                if(_this.i>99){
+                    clearInterval(_this.timer);
+                    $(".loading").remove();
+                    $(".kv_page").removeClass('dno');
+                    homeAni();
+                }
+            },_this.time);
+        };
+    }
+
+    /**
+     * 判断是否参加过游戏,控制首页我的不同显示,为1旅行箱则显示
+     */
+    function checkFirstTimeVisit (){
+        var join = $("#join").val();
+        if(join == 0){
+            $(".btn_suitcase").hide();
+            $(".kv_page .plain_bg").show();
+            return true;
+        }else{
+            $(".btn_suitcase").show();
+            $(".btn_rule").css('bottom',1.5 + 'rem');
+            $(".kv_page .plain_bg").hide();
+            return false;
+        }
+    }
+
+    /**
+     * 检测用户是否玩过游戏
+     */
+    function checkFirstPlay(){
+        var join = $("#join").val();
+        return join == 0 ? true : false;
+    }
+    /**
+     * 首页动画
+     */
+    function homeAni(){
+        if(!checkFirstTimeVisit()){
+            //第二次进入时的动画 1 不要入场动画和飞机动画,直接循环国家图片切换动画
+            $(".kv_page .main_kv .zs span").css("opacity",1);
+            switchImg(0);
+            timer = setInterval(function () {
+                switchImg(0);
+            },6000)
+        }else{
+            //第一次进入时的动画
+            /*1:初始化国家动画 2:播放飞机动画在播放国家动画后的1s 3:循环播放国家切换图片动画*/
+            var zsConsumTime = InitCountryAni(400);
+            plainAni(zsConsumTime,2000);
+//            setTimeout(function(){},zsConsumTime+1000);
+                // 重复播放国家动画
+//            timer = setInterval(function(){
+//                switchImg(0);
+//            },6000);
+        }
+    }
+
+    /**
+     * 初始化国家动画
+     *@param timeInterval时间间隔
+     * @return 动画消耗时间
+     */
+    function InitCountryAni(timeInterval){
+        setTimeout(function () {
+            $austra.addClass('aniLarger')
+            $austra.animate({'opacity':1},0);
+        },timeInterval * 0);
+        setTimeout(function () {
+            $us.addClass('aniLarger')
+            $us.animate({'opacity':1},0);
+        },timeInterval * 1);
+        setTimeout(function () {
+            $france.addClass('aniLarger')
+            $france.animate({'opacity':1},0);
+        },timeInterval * 2);
+        setTimeout(function () {
+            $uk.addClass('aniLarger')
+            $uk.animate({'opacity':1},0);
+        },timeInterval * 3);
+        setTimeout(function () {
+            $roma.addClass('aniLarger')
+            $roma.animate({'opacity':1},0);
+        },timeInterval * 4);
+        return timeInterval * 4;
+    }
+
+    /**
+     * 首页切换图片动画
+     */
+    function switchImg(t){
+        var everyAniConsumTime = 1000;
+        setTimeout(function () {
+            countAnimationSwitch($austra);
+            $austra.addClass('boost').siblings().removeClass('boost aniLarger');
+            $(".main_kv .dialog_aus").addClass('aniOpacity').siblings().removeClass('aniOpacity');
+        },everyAniConsumTime + t);
+        setTimeout(function () {
+            countAnimationSwitch($us);
+            $us.addClass('boost').siblings().removeClass('boost aniLarger');
+            $(".main_kv .dialog_us").addClass('aniOpacity').siblings().removeClass('aniOpacity');
+        },everyAniConsumTime*2 +t);
+        setTimeout(function () {
+            countAnimationSwitch($france);
+            $france.addClass('boost').siblings().removeClass('boost aniLarger');
+            $(".main_kv .dialog_france").addClass('aniOpacity').siblings().removeClass('aniOpacity');
+
+        },everyAniConsumTime*3 +t);
+        setTimeout(function () {
+            countAnimationSwitch($uk);
+            $uk.addClass('boost').siblings().removeClass('boost aniLarger');
+            $(".main_kv .dialog_uk").addClass('aniOpacity').siblings().removeClass('aniOpacity');
+        },everyAniConsumTime*4 +t);
+        setTimeout(function () {
+            countAnimationSwitch($roma);
+            $roma.addClass('boost').siblings().removeClass('boost aniLarger');
+            $(".main_kv .dialog_italy").addClass('aniOpacity').siblings().removeClass('aniOpacity');
+        },everyAniConsumTime*5 +t);
+    }
+
+    /**
+     *  // 还原所有发光的照片为不发光
+     * @param switchObj
+     */
+    function countAnimationSwitch(switchObj){
+        $(".zs span").each(function(index, el) {
+            var sourceBakImg = $(this).css("background-image");
+            $(this).css("background-image",sourceBakImg.replace('/img/g','/img/'));
+        });
+        var currentBakImg = switchObj.css("background-image");
+        switchObj.css("background-image",currentBakImg.replace('/img/','/img/g'));
+    }
+
+    /**
+     *
+     * @param timeInterval 时间间隔
+     * @param speed 动画速度
+     * @return consumTime动画消耗时间
+     */
+    function plainAni(timeInterval, speed){
+        setTimeout(function () {
+            $(".plain_bg").animate({'right':10 + '%','opacity':1}, speed);
+        },timeInterval)
+        return timeInterval + speed;
+    }
+
+    /**
+     * 点击城市初始化
+     */
+    function initCountEvent(){
+        $(".zs span").bind('click',function () {
+            currentCountryName = $(this).attr('name');
+            console.log(currentCountryName);
+            count=$(this).attr('title');
+            var country = $(this).text();
+            console.log(country);
+            $(".page_pop img").attr("src","");
+            $(".page_pop").removeClass("dno");
+            $(".page_pop img").attr("src","img/count_"+$(this).attr("name")+"_pop.png");
+        });
+        $(".page_pop .pop_confirm").bind("click",function(){
+            // 关闭当前页面，1s之后打开相机页面
+            $(".kv_page").fadeOut('fast');
+            $(".page_pop").addClass("dno");
+            setTimeout(function () {
+                $(".kv_page").addClass('dno');
+//                $(".photo_page").removeClass('dno').addClass('rotateIn');
+//                $(".photo_page").show();
+                $(".apply_page").show();
+            },1000);
+            // 给对应的国家随机从指定数组中取对应的城市
+            var randomCountVal = randomCountValByCountArr(countArr,count);
+            var j_city = countName[randomCountVal];
+            $(".apply_item").css('backgroundImage',('url("img/'+count+'bg'+'.png")'));
+            $(".city_pic").css('backgroundImage',('url("img/'+randomCountVal+'.jpg")'));
+            $(".suit_place img").attr('src','img/'+randomCountVal+'.png');
+            $(".page_pop").addClass("dno");
+            showRandomElement();/显示数组中随机的8个/
+        });
+
+        $(".page_pop .pop_close").bind("click",function(){
+            $(".page_pop").addClass("dno");
+        });
+    }
+
+    /**
+     *
+     * @param countArr
+     * @param count
+     * @returns {*}
+     */
+    function randomCountValByCountArr(countArr,count){
+        var countObj = countArr[count];                 // 国家数组
+        var countObjLength = countObj.length;               // 这个国家的所有省份的个数
+        var randomVal = Math.floor((Math.random()*countObjLength));     // 如果这个国家有5个省份，那么该值为 0-4
+        return countObj[randomVal];
+    }
+
+    /**
+     * 获取数组中的随机数
+     */
+    function getRandomArrayElements(arr, count) {
+        var shuffled = arr.slice(0), i = arr.length, min = i - count, temp, index;
+        while (i-- > min) {
+            index = Math.floor((i + 1) * Math.random());
+            temp = shuffled[index];
+            shuffled[index] = shuffled[i];
+            shuffled[i] = temp;
+        }
+        return shuffled.slice(min);
+    }
+
+    /**
+     * 显示随机元素
+     */
+    function showRandomElement(){
+        var items = ['萌萌哒','少女心','吃货','完美主义','强迫症','傲娇','中二','女汉子','独身主义','小情绪','玻璃心','正义感','NoZuoNoDie','霸道','浪漫','骨灰级懒','容易冲动','购物狂','爱撒娇',
+            '脑洞大','高智商','吐槽君','小鲜肉','猛汉'];
+        var result=getRandomArrayElements(items, 8);
+        for(var i=0;i<8;i++){
+            $(".apply_page ul li:eq("+i+")").html(result[i]);
+        }
+    }
+
+    /**
+     * 追加删除元素到元素中
+     */
+    function addOrDelDesc(){
+        $(".apply_page ul li").on('click',function () {
+            var _thisTxt = $(this).text() + '';
+            var desc_word = $(".desc_txt").text();
+            if(desc_word.indexOf(_thisTxt) != -1){
+                $($(".desc_txt")[0]).text(desc_word.split(_thisTxt).toString(" ").replace(",", ""));
+            }else{
+                $(".desc_txt").append(_thisTxt + ' ');
+            }
+        })
+    }
+
+    /**
+     * 查看结果
+     */
+    function viewResult(){
+        $(".apply_page").fadeOut();
+        $(".result_page").fadeIn();
+    }
+    $(".apply_page .btn_tj").on('click',function () {
+        if($(".star_state").val() == '' || $(".sign_star").val() == '' || $(".desc_txt").text() == ''){
+            alert('请描述一下自己~');
+        }else{
+            viewResult();
+            calIndex();
+            calAdenture();
+            calSloganByStar();
+        }
+
+    });
+
+    /**
+     * 计算邂逅指数
+     */
+    function calIndex(){
+        var checkValue=$(".star_state").val();
+        $(".star_bg img").attr('src','img/star_'+ (6-checkValue) + '.png');
+        var zhishu = (6-checkValue);
+        console.log(zhishu);
+    }
+
+    /**
+     * 根据星座计算旅行口号
+     */
+    function calSloganByStar(){
+        var checkValue=$(".sign_star").val();
+        var arr=['任性冒险，闯出个天荒地老','宝宝懒，宝宝爱跟团','来场接地气的穷游可好？','来到另一座城市，随性漫步','背行囊爬高山，遥指远方：这一切都是朕为你们打下的气壮山河','我只想静静地走进大自然','边玩边学，学艺与旅游可兼得也','不作死就不旅行，期待有意想不到的奇遇','地点随意，时间看心情，旅游嘛，就是重在参与','旅行一阵子打工一阵子旅行一阵子打工一阵子……','人生下来的时候都只有一半，为了找到另一半而在人世间行走。你的旅行就是为了找到另一半。','讲真，每次旅行都跟蜜月似的'];
+        $(".star_text").html(arr[checkValue - 1]);
+    }
+    /**
+     * 计算奇遇
+     */
+    function calAdenture(){
+        var qiyuText = $(".tab_text");
+        var firstTitle = $(".desc_txt").text().trim().split(" ")[0];
+        qiyuText.text(titleTextObj[currentCountryName + '-' + titleObj[firstTitle]]);
+    }
+
+    /**
+     * 抽奖环节,点击我要豪礼,进入验证页面
+     */
+    function enterDegree(){
+        //如果用户没玩过游戏,或者"share_get_chance" > 0,那么进入表单页面
+        if(checkFirstPlay() || share_get_chance > 0){
+            $(".result_page").fadeOut();
+            $(".submit_page").fadeIn();
+        }else{
+            $(".lottery_page").show();
+            $(".lottery_page .modal_bd").show();
+            if(share_get_chance == 0){
+                $(".lottery_page .modal_bd").html('你今日的抽奖次数已用完，快让好友赞助你一次机会吧~');
+            } else {
+                $(".lottery_page .modal_bd").html('你今日的抽奖次数已用完，明天再来试试吧~');
+            }
+        }
+    }
+    $(".result_page .btn_gift").on('click',enterDegree);
+
+    /**
+     * 关闭弹层
+     */
+    function closeModal(){
+         $('.lottery_page').hide();
+    }
+    $(".lottery_page .modal_close").on('click',closeModal);
+
+
+    /**
+     * 复选框协议勾选
+     */
+    function checkAgreeMent(){
+        if (bool) {
+            $("#gouBg").css("background-image", "url('img/unchecked.png')");
+            bool = false;
+        } else {
+            $("#gouBg").css("background-image", "url('img/checked.png')");
+            bool = true;
+        }
+    }
+    $('.agreement span').bind("touchstart",checkAgreeMent);
+
+    /**
+     * 进入验证
+     */
+    function validate(){
+        var name = $.trim($('#username').val());
+        var phone = $.trim($('#mobile').val());
+        var address = $.trim($('#address').val());
+        var xinzuo = $(".sign_star").find("option:selected").text(),
+            tag = $(".desc_txt").text(),
+            message = $(".slogan").find("option:selected").text(),
+            xinge = $(".star_text").text(),
+            des = $(".tab_text").text();
+            console.log(xinzuo);
+            console.log(tag);
+            console.log(message);
+            console.log(xinge);
+            console.log(des);
+            console.log(j_city);
+        if(checkTable()){
+            //给指纹解除touchend绑定事件
+            $(".fingerBig").unbind('touchend');
+            winningResult(2);
+            $.ajax({
+                type: "POST",
+                url: "lib/getinfo.php",
+                data: {u_name: name,u_mobile: phone,u_address: address},
+                dataType: 'json',
+                success: function (data) {
+                    //alert(data.errCode);
+                    if (data.errCode == 0) {
+                        // return data 返回中奖信息
+                        //数据提交
+                        $.ajax({
+                            type: "POST",
+                            url: "lib/lucky.php",
+                            data: {
+                                j_country: country,
+                                j_img: j_img,
+                                j_xinzuo: xinzuo,
+                                j_tag:tag,
+                                j_message:message,
+                                j_xinge:xinge,
+                                j_zhishu:zhishu,
+                                j_des:des,
+                                j_city:j_city
+                            },
+                            dataType: 'json',
+                            success: function (data) {
+                                //alert(data.errCode);
+                                if (data.errCode == 0) {
+                                    winningResult(data.res.lucky);
+                                } else {
+                                    alert(data.errMsg);
+                                }
+                            }
+                        });
+
+
+                    } else {
+                        alert(data.errMsg);
+                    }
+                }
+            });
+        }
+    }
+
+    function fingerEvent(){
+        $(".submit_page .fingerBig").on('click',validate);
+        $(".submit_page .fingerBig").on('click',fingerPrint);
+    }
+
+
+    //检测输入
+    function checkTable() {
+        var username = $.trim($('#username').val());
+        var tel=$.trim($('#mobile').val());
+        var address=$.trim($("#address").val());
+        if (!checkExist(username)) {
+            alert("请输入您的姓名");
+            return false;
+        }else if(!checkPhone(tel)){
+            alert('请输入正确您的手机号');
+            return false;
+        }else if(!bool){
+            alert('请同意并勾选说明条款');
+            return false;
+        }
+        else{
+            return true;
+        }
+
+    }
+
+    /**
+     * 中奖结果显示
+     * @param currentZhongJiang
+     */
+    function winningResult(currentZhongJiang){
+        $(".winning_page .modal_bd img").attr('src','img/jiang_' + currentZhongJiang + '.png');
+        $(".winning_page").fadeIn('fast');
+    }
+
+    /**
+     * 点击关闭重新刷新页面
+     */
+    function reloadFunction(){
+        window.location.reload();
+        window.location.href=updateUrl(window.location.href);
+    }
+    $(".winning_page .modal_close").on('click',reloadFunction);
+
+    /**
+     * 安卓机下不能刷新页面的解决方案
+     * @param url
+     * @param key
+     * @returns {*}
+     */
+    function updateUrl(url,key)
+    {
+        var key = (key || 't') + '='; //默认是“t”
+        var reg = new RegExp(key + '\\d+');//正则：t=1472286066028
+        var timestamp = +new Date();
+        if(url.indexOf(key)>-1)//有时间戳，直接更新
+        {
+            return url.replace(reg, key + timestamp);
+        }
+        else //没有时间戳，加上时间戳
+        {
+            if(url.indexOf('\?')>-1)
+            {
+                var urlArr = url.split('\?');
+                if(urlArr[1])
+                {
+                    return urlArr[0] + '?' + key + timestamp + '&' + urlArr[1];
+                }
+                else
+                {
+                    return urlArr[0] + '?' + key + timestamp;
+                }
+            }
+            else
+            {
+                if(url.indexOf('#')>-1)
+                {
+                    return url.split('#')[0]+'?'+key+timestamp+location.hash;
+                }
+                else
+                {
+                    return url + '?' + key + timestamp;
+                }
+            }
+        }
+    }
+
+    /**
+     * 长按指纹
+     */
+    function fingerPrint(){
+        var x=0;
+        var timer;
+        $(".fingerBig").bind('touchstart',function(){
+            timer = setInterval(function(){
+                x++;
+                if(x>=1){
+                    console.log('按住时间够了,需要做判断');
+                    x=0;
+                    clearInterval(timer);
+                    validate();
+                }
+            },1000);
+        });
+
+        $(".fingerBig").bind('touchend',function(){
+            clearInterval(timer);
+            if(x<1){
+                x=0;
+                console.log('按住时间不够,需要重新长按');
+                alert("请重新长按！");
+                return false;
+            }
+        });
+    }
+
+</script>
+</html>
+
